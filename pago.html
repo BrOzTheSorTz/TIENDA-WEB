@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Form</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    /* Estilos básicos para el formulario */
+    .StripeElement {
+      box-sizing: border-box;
+      height: 40px;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: white;
+      box-shadow: 0 1px 3px 0 #e6ebf1;
+      transition: box-shadow 150ms ease;
+    }
+    .StripeElement--focus {
+      box-shadow: 0 1px 3px 0 #cfd7df;
+    }
+    .StripeElement--invalid {
+      border-color: #fa755a;
+    }
+    .StripeElement--webkit-autofill {
+      background-color: #fefde5 !important;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    .product {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .product-name {
+      font-weight: bold;
+    }
+    .total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 1em;
+      background-color: var(--clr-main);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: var(--clr-main);
+    }
+    #card-errors {
+      color: #fa755a;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Carrito de Compras</h2>
+    <div class="product">
+      <span class="product-name">Producto 1</span>
+      <span class="product-price">$10.00</span>
+    </div>
+    <div class="product">
+      <span class="product-name">Producto 2</span>
+      <span class="product-price">$20.00</span>
+    </div>
+    <div class="total">
+      <span>Total</span>
+      <span>$30.00</span>
+    </div>
+
+    <form id="payment-form">
+      <div id="card-element" class="StripeElement"></div>
+      <div id="card-errors" role="alert"></div>
+      <button type="submit">Pagar $30.00</button>
+    </form>
+  </div>
+
+  <script>
+    // Inicializa Stripe con tu clave pública
+    var stripe = Stripe('pk_test_51PJegp050IF04zBe3YgNRZ3hKzMFwGuQmbGr6qYkS135Wg29Kw3yBbx9zNajuAbIx12ZFvGjmaxN2qK74ZpRDGX400EiK5rLga');
+    
+    // Crea un objeto de elementos de Stripe
+    var elements = stripe.elements();
+    
+    // Crea una instancia de la tarjeta
+    var card = elements.create('card');
+    
+    // Monta el elemento de la tarjeta en el div correspondiente
+    card.mount('#card-element');
+    
+    // Maneja los cambios en el campo de la tarjeta para mostrar errores en tiempo real
+    card.on('change', function(event) {
+      var displayError = document.getElementById('card-errors');
+      if (event.error) {
+        displayError.textContent = event.error.message;
+      } else {
+        displayError.textContent = '';
+      }
+    });
+
+    // Maneja el envío del formulario
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      // Crea un token con los datos de la tarjeta
+      stripe.createToken(card).then(function(result) {
+        if (result.error) {
+          // Muestra el error en el navegador
+          var errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+        } else {
+          // Aquí es donde enviarías el token al backend
+          console.log(result.token);
+          
+          // Puedes enviar el token a tu servidor aquí
+          // fetch('/your-server-endpoint', {
+          //   method: 'POST',
+          //   headers: {
+          //     'Content-Type': 'application/json'
+          //   },
+          //   body: JSON.stringify({ token: result.token.id, amount: 3000 })
+          // });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+  

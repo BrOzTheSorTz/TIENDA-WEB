@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --clr-main: #4b33a8;
+    --clr-main: hsl(315, 100%, 24%);
     --clr-main-light: #784db4;
     --clr-white: #ececec;
     --clr-gray: #e2e2e2;
@@ -349,6 +349,16 @@ main{
 }
 .carrito-acciones-derecha{
     display: flex;
+}
+.carrito-acciones-abajo {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* Puedes cambiar el color de fondo según tu diseño */
+    padding: 10px; /* Ajusta el padding según sea necesario */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra bajo el carrito */
+    z-index: 1000; 
 }
 
 .carrito-acciones-total{
