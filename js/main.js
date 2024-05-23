@@ -25,6 +25,7 @@ fetch("./js/productos.json")
 function cargarProductos(contenedorProductos,productosElegidos){
     
     contenedorProductos.innerHTML = "";
+    contenedorVerMas.innerHTML = "";
     
     productosElegidos.forEach(producto=>{
         const div = document.createElement("div");
