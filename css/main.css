@@ -144,6 +144,39 @@ main{
     
 }
 
+.buscador_input {
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Para un estilo adicional, puedes agregar un contenedor al buscador */
+.buscador_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.buscador_boton {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: var(--clr-main);
+    color: white;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 0.5rem;
+}
+
+.buscador_button:hover {
+    background-color: var(--clr-main);
+}
+
 .titulo-principal{
     color: var(--clr-main);
     margin-bottom: 2rem;
