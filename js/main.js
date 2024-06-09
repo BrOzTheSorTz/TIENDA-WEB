@@ -15,7 +15,7 @@ const buscador_div = document.getElementById("buscador_div");
 const btnBuscar = document.getElementById("btnBuscar");
 let botonesVerMas = document.querySelectorAll(".ver-mas");
 
-fetch("./js/productos.json")
+fetch("../data/productos.json")
     .then(response => response.json())
     .then(data => {
         productos = data;
